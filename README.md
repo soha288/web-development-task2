@@ -14,4 +14,6 @@ This is Task-02 of my internship at **Prodigy Infotech**. I built a stopwatch we
 - HTML
 - CSS
 - JavaScript
+📝 About the Internship
 
+This project was developed as part of my Web Development Internship at Prodigy Infotech. It helped me strengthen my skills in frontend technologies and real-time UI interactions.
