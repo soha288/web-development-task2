@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch web application</title>
+    <style>
+      body{
+        background-color: cornflowerblue;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .heading{
+        font-weight: bold;
+        color: antiquewhite;
+        
+      }
+      .time{
+        font-family: 'Times New Roman';
+        padding: 80px ;
+        
+      }
+      .digits{
+        font-size: xx-large;
+        color: antiquewhite;
+      }
+      .text{
+        font-size: large;
+        color: black;
+      }
+      .btn1,.btn2,.btn3,.btn4{
+        background-color: cyan;
+        border: black;
+        height: 30px;
+        width: 80px;
+        cursor: pointer;
+        border-radius: 30px;
+        font-size: large;
+      }
+      .btn1:hover,.btn2:hover,.btn3:hover,.btn4.hover{
+        color: rgb(82, 17, 204);
+        background-color: beige;
+      }
+      
+      .container{
+        
+        background-color: cadetblue;
+        height:350px;
+        width:550px;
+        margin: 100px  auto;
+        text-align: center;
+      }
+      .laps {
+      max-height: 200px;
+      overflow-y: auto;
+      margin-top: 10px;
+      background-color: #eeeeee;
+      padding: 10px;
+      border-radius: 10px;
+      text-align: left;
+    }
+    .lap-entry {
+      font-family: monospace;
+      margin-bottom: 5px;
+    }
+    </style>
+</head>
+<body>
+     <div class="container">
+        <h1 class="heading">STOPWATCH</h1>
+        <div class="time">
+        <span class="digits" id="hour">00</span>
+        <span class="text" >Hr</span>
+        <span class="digits" id="minute">00</span>
+        <span class="text" >Min</span>
+        <span class="digits" id="seconds">00</span>
+        <span class="text" >Secs</span>
+        <span class="digits" id="count">00</span>
+        </div>
+        <div class="buttons">
+          <button class="btn1" id="start">START</button>
+          <button class="btn2" id="stop">STOP</button>
+          <button class="btn3" id="lap">LAP</button>
+          <button class="btn4" id="reset">RESET</button>
+        </div>
+        <div class="laps" id="laps"></div>
+     </div>
+    <script>
+      let hr=0;
+      let min=0;
+      let sec=0;
+      let count=0
+      let timer=false;
+      let lapCount = 0;
+      document.getElementById("start").onclick= function(){
+       timer=true;
+       stopwatch();
+      };
+      document.getElementById("stop").onclick=function(){
+        timer=false;
+      };
+      document.getElementById("lap").onclick = () => {
+  if (!timer) return;
+
+  lapCount++;
+  const lapTime = `${pad(hr)}:${pad(min)}:${pad(sec)}.${pad(count)}`;
+  const lapText = `Lap ${lapCount}: ${lapTime}`;
+
+  const lapContainer = document.getElementById("laps");
+  lapContainer.innerHTML = `<div class="lap-entry">${lapText}</div>` + lapContainer.innerHTML;
+};
+
+function pad(n) {
+  return n < 10 ? "0" + n : n;
+}
+
+      document.getElementById("reset").onclick=function(){
+        timer=false;
+        hr=0;
+        min=0;
+        sec=0;
+        count=0;
+        lapCount = 0;
+        document.getElementById("hour").innerHTML="00";
+        document.getElementById("minute").innerHTML="00";
+        document.getElementById("seconds").innerHTML="00";
+        document.getElementById("count").innerHTML="00";
+        document.getElementById("laps").innerHTML = "";
+      };
+      function stopwatch(){
+        if (timer)
+      {
+        count++;
+        if(count ==100){
+          sec++;
+          count=0;
+        }
+        if (sec==60){
+          min++;
+          sec=0;
+        }
+        if (min==60){
+          hr++;
+          min=0;
+          sec=0;
+        }
+        document.getElementById("hour").innerHTML=hr<10?"0"+hr:hr; 
+        document.getElementById("minute").innerHTML=min<10?"0"+min:min; 
+        document.getElementById("seconds").innerHTML=sec<10?"0"+sec:sec; 
+        document.getElementById("count").innerHTML=count<10?"0"+count:count; 
+        setTimeout(stopwatch,10);
+      }
+      }
+    </script>  
+</body>
+</html>
